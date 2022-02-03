@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("admin-secret")
-    public ResponseEntity<Integer> getAdminSecret(@RequestParam String username){
-        return new ResponseEntity<>(userService.getSecret(), HttpStatus.ACCEPTED);
+    public ResponseEntity<String> getAdminSecret(@RequestParam String username){
+        return new ResponseEntity<>(userService.getSecret(username), HttpStatus.ACCEPTED);
     }
 }
