@@ -3,7 +3,6 @@ package com.pedro.usersecurityservice.services;
 import com.pedro.usersecurityservice.domain.UserEntity;
 import com.pedro.usersecurityservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -18,10 +17,11 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        assert (authentication.getPrincipal() instanceof String && authentication.getCredentials() instanceof String);
-        UserEntity user = userRepository.findByUsername((String) authentication.getPrincipal()).orElseThrow();
-        if (passwordEncoder.matches((String) authentication.getCredentials(), user.getPassword())) {
-            return authentication;
+        if (authentication.getPrincipal() instanceof String && authentication.getCredentials() instanceof String) {
+            UserEntity user = userRepository.findByUsername((String) authentication.getPrincipal()).orElseThrow();
+            if (passwordEncoder.matches((String) authentication.getCredentials(), user.getPassword())) {
+                return authentication;
+            }
         }
         throw new RuntimeException("Could not verify user");
     }

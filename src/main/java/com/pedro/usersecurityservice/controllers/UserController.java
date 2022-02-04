@@ -35,4 +35,9 @@ public class UserController {
     public ResponseEntity<String> JWTLogin(@RequestBody UserDto userDto){
         return new ResponseEntity<>(authService.getJWT(userDto), HttpStatus.ACCEPTED);
     }
+
+//    @GetMapping("/jwt")
+//    public ResponseEntity<String> JWTTest(@RequestHeader String token){
+//
+//    }
 }

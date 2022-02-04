@@ -28,4 +28,8 @@ public class UserService {
         return user.getSecret();
     }
 
+//    public String checkToken(String token){
+//
+//    }
+
 }
