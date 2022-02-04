@@ -1,7 +1,7 @@
 package com.pedro.usersecurityservice.controllers;
 
 import com.pedro.usersecurityservice.dto.UserDto;
-import com.pedro.usersecurityservice.services.UserDetailsService;
+import com.pedro.usersecurityservice.services.JWTAuthService;
 import com.pedro.usersecurityservice.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final JWTAuthService authService;
 
     @PostMapping("signup")
     public ResponseEntity<Void> signUp(@RequestBody UserDto userDto){
@@ -28,5 +29,10 @@ public class UserController {
     @GetMapping("admin-secret")
     public ResponseEntity<String> getAdminSecret(@RequestParam String username){
         return new ResponseEntity<>(userService.getSecret(username), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> JWTLogin(@RequestBody UserDto userDto){
+        return new ResponseEntity<>(authService.getJWT(userDto), HttpStatus.ACCEPTED);
     }
 }
